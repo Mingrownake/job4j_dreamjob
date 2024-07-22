@@ -1,9 +1,11 @@
 package ru.job4j.repository;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.model.Vacancy;
 
 import java.util.*;
 
+@Repository
 public class MemoryVacancyRepository implements VacancyRepository {
     private final static MemoryVacancyRepository INSTANCE = new MemoryVacancyRepository();
 
@@ -12,12 +14,14 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
     private MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer"));
-        save(new Vacancy(0, "Junior Java Developer"));
-        save(new Vacancy(0, "Junior+ Java Developer"));
-        save(new Vacancy(0, "Middle Java Developer"));
-        save(new Vacancy(0, "Middle+ Java Developer"));
-        save(new Vacancy(0, "Senior Java Developer"));
+        save(new Vacancy(0, "Intern Java Developer", "Base Java"));
+        save(new Vacancy(0, "Junior Java Developer", "Base Java, OOP"));
+        save(new Vacancy(0, "Junior+ Java Developer", "Base Java, OOP, Collection"));
+        save(new Vacancy(0, "Middle Java Developer", "Base Java, OOP, Collection, Lambda"));
+        save(new Vacancy(0, "Middle+ Java Developer",
+                "Base Java, OOP, Collection, Lambda, Stream API"));
+        save(new Vacancy(0, "Senior Java Developer",
+                "Base Java, OOP, Collection, Lambda, Stream API, IO"));
     }
 
     public static MemoryVacancyRepository getInstance() {
@@ -39,7 +43,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     @Override
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) ->
-            new Vacancy(id, oldVacancy.getTitle())) != null;
+            new Vacancy(id, oldVacancy.getTitle(), oldVacancy.getDescription())) != null;
     }
 
     @Override
