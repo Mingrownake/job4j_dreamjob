@@ -14,10 +14,11 @@
             <a class="navbar-brand" th:href="@{/index}">Job4jDreamJob</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
+                    <a class="nav-item nav-link" href="/">Главная</a>
                     <a class="nav-item nav-link" th:href="@{/vacancies}">Вакансии</a>
-                    <a class="nav-item nav-link active" th:href="@{/candidates}">Кандидаты</a>
                     <a class="nav-item nav-link" th:href="@{/vacancies/create}">Создать вакансию</a>
+                    <a class="nav-item nav-link active" th:href="@{/candidates}">Кандидаты</a>
+                    <a class="nav-item nav-link" th:href="@{/candidates/create}">Добавить кандидата</a>
                 </div>
             </div>
         </div>
@@ -26,7 +27,9 @@
         <h3>Проект job4j_dreamjob</h3>
         <ul>
             <li><a th:href="@{/vacancies}">Вакансии</a></li>
+            <li><a th:href="@{/vacancies/create}">Создать вакансию</a></li>
             <li><a th:href="@{/candidates}">Кандидаты</a></li>
+            <li><a th:href="@{/candidates/create}">Кандидаты</a></li>
         </ul>
     </div>
 </div>
@@ -37,7 +40,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
-                <th scope="col">Описание</th>
                 <th scope="col">Время публикации</th>
             </tr>
             </thead>
@@ -45,7 +47,6 @@
             <tr th:each="candidate: ${candidates}">
                 <td th:text="${candidate.id}"></td>
                 <td th:text="${candidate.name}"></td>
-                <td th:text="${candidate.description}"></td>
                 <td th:text="${candidate.creationDateTime}"></td>
             </tr>
             </tbody>
