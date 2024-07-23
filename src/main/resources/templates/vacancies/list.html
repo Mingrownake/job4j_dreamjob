@@ -45,9 +45,9 @@
             </thead>
             <tbody>
             <tr th:each="vacancy: ${vacancies}">
-                <td th:text="${vacancy.id}" />
-                <td th:text="${vacancy.title}" />
-                <td th:text="${vacancy.creationDate}" />
+                <td th:text="${vacancy.id}"></td>
+                <td><a th:text="${vacancy.title}" th:href="@{/vacancies/{id}(id=${vacancy.id})}"></a></td>
+                <td th:text="${vacancy.creationDate}"></td>
             </tr>
             </tbody>
         </table>
