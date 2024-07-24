@@ -1,14 +1,14 @@
 package ru.job4j.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.model.Vacancy;
-import ru.job4j.repository.MemoryCandidateRepository;
 import ru.job4j.repository.MemoryVacancyRepository;
 import ru.job4j.repository.VacancyRepository;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SimpleVacancyService implements VacancyService {
     private static final SimpleVacancyService INSTANCE = new SimpleVacancyService();
     private final VacancyRepository vacancyRepository = MemoryVacancyRepository.getInstance();

@@ -1,9 +1,11 @@
 package ru.job4j.repository;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.model.Candidate;
 
 import java.util.*;
 
+@Repository
 public class MemoryCandidateRepository implements CandidateRepository {
     private static final MemoryCandidateRepository INSTANCE = new MemoryCandidateRepository();
 

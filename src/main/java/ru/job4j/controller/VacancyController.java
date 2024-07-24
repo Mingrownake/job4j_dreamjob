@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.Vacancy;
-import ru.job4j.repository.MemoryVacancyRepository;
-import ru.job4j.repository.VacancyRepository;
 import ru.job4j.service.SimpleVacancyService;
 import ru.job4j.service.VacancyService;
 

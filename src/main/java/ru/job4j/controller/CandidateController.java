@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.Candidate;
-import ru.job4j.repository.CandidateRepository;
-import ru.job4j.repository.MemoryCandidateRepository;
 import ru.job4j.service.CandidateService;
 import ru.job4j.service.SimpleCandidateService;
 
