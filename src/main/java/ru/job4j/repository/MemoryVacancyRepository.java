@@ -1,14 +1,17 @@
 package ru.job4j.repository;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Vacancy;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@ThreadSafe
 @Repository
 public class MemoryVacancyRepository implements VacancyRepository {
 
-    private int nextId = 1;
+    private AtomicInteger nextId = new AtomicInteger(0);
 
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
@@ -25,7 +28,8 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     @Override
     public Vacancy save(Vacancy vacancy) {
-        vacancy.setId(nextId++);
+        int id = nextId.getAndIncrement();
+        vacancy.setId(id);
         vacancies.put(vacancy.getId(), vacancy);
         return vacancy;
     }

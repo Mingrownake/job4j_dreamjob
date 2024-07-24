@@ -1,14 +1,18 @@
 package ru.job4j.repository;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Candidate;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@ThreadSafe
 @Repository
 public class MemoryCandidateRepository implements CandidateRepository {
 
-    private int nextId = 1;
+    private AtomicInteger nextId = new AtomicInteger(0);
 
     private MemoryCandidateRepository() {
         save(new Candidate(0, "Nikita", "Base Java Core"));
@@ -21,7 +25,8 @@ public class MemoryCandidateRepository implements CandidateRepository {
 
     @Override
     public Candidate save(Candidate candidate) {
-        candidate.setId(nextId++);
+        int id = nextId.getAndIncrement();
+        candidate.setId(id);
         candidates.put(candidate.getId(), candidate);
         return candidate;
     }
