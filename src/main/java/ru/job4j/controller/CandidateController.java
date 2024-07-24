@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.Candidate;
 import ru.job4j.repository.CandidateRepository;
 import ru.job4j.repository.MemoryCandidateRepository;
+import ru.job4j.service.CandidateService;
+import ru.job4j.service.SimpleCandidateService;
 
 @Controller
 @RequestMapping("/candidates")
 public class CandidateController {
-    private final CandidateRepository candidateRepository = MemoryCandidateRepository.getInstance();
+    private final CandidateService candidateService = SimpleCandidateService.getInstance();
 
     @GetMapping
     public String getCandidates(Model model) {
-        model.addAttribute("candidates", candidateRepository.findAll());
+        model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
@@ -25,13 +27,13 @@ public class CandidateController {
 
     @PostMapping("/create")
     public String postCreate(@ModelAttribute Candidate candidate) {
-        candidateRepository.save(candidate);
+        candidateService.save(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("{id}")
     public String getId(@PathVariable int id, Model model) {
-        var optionalCandidate = candidateRepository.findById(id);
+        var optionalCandidate = candidateService.findById(id);
         if (optionalCandidate.isEmpty()) {
             model.addAttribute("message", "Сотрудник с данным id не найден");
             return "error/404";
@@ -42,7 +44,7 @@ public class CandidateController {
 
     @PostMapping("/update")
     public String postUpdate(@ModelAttribute Candidate candidate, Model model) {
-        var isUpdate = candidateRepository.update(candidate);
+        var isUpdate = candidateService.update(candidate);
         if (!isUpdate) {
             model.addAttribute("message", "Сотрудник с данным id не найден");
             return "error/404";
@@ -52,12 +54,12 @@ public class CandidateController {
 
     @GetMapping("/delete/{id}")
     public String getDelete(Model model, @PathVariable int id) {
-        var optionalCandidate = candidateRepository.findById(id);
+        var optionalCandidate = candidateService.findById(id);
         if (optionalCandidate.isEmpty()) {
             model.addAttribute("message", "Сотрудник с данным id не найден");
             return "error/404";
         }
-        candidateRepository.deleteById(id);
+        candidateService.deleteById(id);
         return "redirect:/candidates";
     }
 
