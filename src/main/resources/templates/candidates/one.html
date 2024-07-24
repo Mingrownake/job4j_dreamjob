@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование кандидата</title>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container-fluid p-0">
+  <div class="container">
+    <form class="mt-3" th:action="@{/candidates/update}" method="post" th:object="${candidate}">
+      <input type="hidden" name="id" th:field="*{id}">
+      <div class="mb-3">
+        <label class="col-form-label" for="title"></label>
+        <input id="title" name="name" th:field="*{name}" class="form-control" placeholder="Имя кандидата">
+      </div>
+      <div class="mb-3">
+        <label class="col-form-label" for="description"></label>
+        <textarea id="description" name="description" th:field="*{description}" class="form-control"
+                  placeholder="Навыки кандидата" rows="25"></textarea>
+      </div>
+      <div class="mt-3 row">
+        <div class="col-6"></div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-4"><a class="btn btn-light w-100" th:href="@{/candidates}">Отмена</a></div>
+            <div class="col-4"><a class="btn btn-danger w-100"
+                                  th:href="@{/candidates/delete/{id}(id=${candidate.id})}">Удалить</a></div>
+            <div class="col-4"><button type="submit" class="btn btn-success w-100">Обновить</button></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>
