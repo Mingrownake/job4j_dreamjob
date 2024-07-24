@@ -7,7 +7,6 @@ import java.util.*;
 
 @Repository
 public class MemoryVacancyRepository implements VacancyRepository {
-    private final static MemoryVacancyRepository INSTANCE = new MemoryVacancyRepository();
 
     private int nextId = 1;
 
@@ -22,10 +21,6 @@ public class MemoryVacancyRepository implements VacancyRepository {
                 "Base Java, OOP, Collection, Lambda, Stream API"));
         save(new Vacancy(0, "Senior Java Developer",
                 "Base Java, OOP, Collection, Lambda, Stream API, IO"));
-    }
-
-    public static MemoryVacancyRepository getInstance() {
-        return INSTANCE;
     }
 
     @Override

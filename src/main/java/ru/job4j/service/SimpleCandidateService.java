@@ -10,15 +10,10 @@ import java.util.Optional;
 
 @Service
 public class SimpleCandidateService implements CandidateService {
-    private final static SimpleCandidateService INSTANCE = new SimpleCandidateService();
-    private final CandidateRepository candidateRepository = MemoryCandidateRepository.getInstance();
+    private final CandidateRepository candidateRepository;
 
-    public static SimpleCandidateService getInstance() {
-        return INSTANCE;
-    }
-
-    public SimpleCandidateService() {
-
+    public SimpleCandidateService(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
     }
 
     @Override
