@@ -18,10 +18,14 @@
                 <input type="text" class="form-control" id="title" name="title" th:field="*{title}"
                        placeholder="Предлагаемая должность">
             </div>
-            <div class="mt-3">
+            <div class="mb-3">
                 <label for="description" class="col-form-label"><b>Описание</b></label>
                 <textarea class="form-control" id="description" name="description" rows="25" th:field="*{description}"
                           placeholder="Опишите требования к кандидату"></textarea>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" name="visible" id="visible" th:field="*{visible}">
+                <label for="visible" class="form-check-label">Опубликовать</label>
             </div>
             <div class="mt-3 row">
                 <div class="col-6"></div>
