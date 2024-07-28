@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Candidate;
 import ru.job4j.repository.CandidateRepository;
-import ru.job4j.repository.MemoryCandidateRepository;
 
 import java.util.Collection;
 import java.util.Optional;

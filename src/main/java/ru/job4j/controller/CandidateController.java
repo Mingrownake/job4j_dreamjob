@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.Candidate;
+import ru.job4j.repository.CityRepository;
 import ru.job4j.service.CandidateService;
 import ru.job4j.service.SimpleCandidateService;
 
@@ -11,9 +12,13 @@ import ru.job4j.service.SimpleCandidateService;
 @RequestMapping("/candidates")
 public class CandidateController {
     private final CandidateService candidateService;
+    private final CityRepository cityRepository;
 
-    public CandidateController(CandidateService candidateService) {
+    public CandidateController(
+            CandidateService candidateService,
+            CityRepository cityRepository) {
         this.candidateService = candidateService;
+        this.cityRepository = cityRepository;
     }
 
     @GetMapping
@@ -23,7 +28,8 @@ public class CandidateController {
     }
 
     @GetMapping("/create")
-    public String getCreatePage() {
+    public String getCreatePage(Model model) {
+        model.addAttribute("cities", cityRepository.findAll());
         return "candidates/create";
     }
 
@@ -41,6 +47,7 @@ public class CandidateController {
             return "error/404";
         }
         model.addAttribute("candidate", optionalCandidate.get());
+        model.addAttribute("cities", cityRepository.findAll());
         return "candidates/one";
     }
 

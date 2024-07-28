@@ -15,10 +15,10 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private AtomicInteger nextId = new AtomicInteger(0);
 
     private MemoryCandidateRepository() {
-        save(new Candidate(0, "Nikita", "Base Java Core"));
-        save(new Candidate(0, "Anton", "Java Core, Spring, Spring Boot"));
-        save(new Candidate(0, "Marina", "Algorithms"));
-        save(new Candidate(0, "Ivan", "System administrator"));
+        save(new Candidate(0, "Nikita", "Base Java Core", false, 3));
+        save(new Candidate(0, "Anton", "Java Core, Spring, Spring Boot", true, 1));
+        save(new Candidate(0, "Marina", "Algorithms", true, 2));
+        save(new Candidate(0, "Ivan", "System administrator", true, 3));
     }
 
     Map<Integer, Candidate> candidates = new HashMap<>();
@@ -39,7 +39,8 @@ public class MemoryCandidateRepository implements CandidateRepository {
     @Override
     public boolean update(Candidate candidate) {
         return candidates.computeIfPresent(candidate.getId(), (i, oldCandidate) ->
-             new Candidate(oldCandidate.getId(), candidate.getName(), candidate.getDescription())
+             new Candidate(oldCandidate.getId(), candidate.getName(), candidate.getDescription(),
+                     candidate.getVisible(), candidate.getCityId())
         ) != null;
     }
 
