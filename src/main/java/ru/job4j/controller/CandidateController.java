@@ -20,9 +20,9 @@ public class CandidateController {
 
     public CandidateController(
             CandidateService candidateService,
-            CityRepository cityRepository) {
+            CityRepository sql2oCityRepository) {
         this.candidateService = candidateService;
-        this.cityRepository = cityRepository;
+        this.cityRepository = sql2oCityRepository;
     }
 
     @GetMapping
