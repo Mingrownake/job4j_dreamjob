@@ -4,6 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Vacancy;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,14 +17,20 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
     private MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer", "Base Java", true, 1, 0));
-        save(new Vacancy(0, "Junior Java Developer", "Base Java, OOP", true, 1, 0));
-        save(new Vacancy(0, "Junior+ Java Developer", "Base Java, OOP, Collection", true, 1, 0));
-        save(new Vacancy(0, "Middle Java Developer", "Base Java, OOP, Collection, Lambda", true, 2, 0));
+        save(new Vacancy(0, "Intern Java Developer", "Base Java", LocalDateTime.now(),
+                true, 1, 0));
+        save(new Vacancy(0, "Junior Java Developer", "Base Java, OOP", LocalDateTime.now(),
+                true, 1, 0));
+        save(new Vacancy(0, "Junior+ Java Developer", "Base Java, OOP, Collection", LocalDateTime.now(),
+                true, 1, 0));
+        save(new Vacancy(0, "Middle Java Developer", "Base Java, OOP, Collection, Lambda", LocalDateTime.now(),
+                true, 2, 0));
         save(new Vacancy(0, "Middle+ Java Developer",
-                "Base Java, OOP, Collection, Lambda, Stream API", true, 3, 0));
+                "Base Java, OOP, Collection, Lambda, Stream API", LocalDateTime.now(),
+                true, 3, 0));
         save(new Vacancy(0, "Senior Java Developer",
-                "Base Java, OOP, Collection, Lambda, Stream API, IO", true, 3, 0));
+                "Base Java, OOP, Collection, Lambda, Stream API, IO", LocalDateTime.now(),
+                true, 3, 0));
     }
 
     @Override
@@ -42,7 +49,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     @Override
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) ->
-            new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(),
+            new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(), oldVacancy.getCreationDate(),
                     vacancy.getVisible(), vacancy.getCityId(), vacancy.getFileId())) != null;
     }
 
