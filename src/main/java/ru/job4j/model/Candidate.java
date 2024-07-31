@@ -1,16 +1,27 @@
 package ru.job4j.model;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Objects;
 
 public class Candidate {
+
+    public final static Map<String, String> COLUMN_MAPPING = Map.of(
+            "id", "id",
+            "name", "name",
+            "description", "description",
+            "creation_date", "creationDate",
+            "visible", "visible",
+            "city_id", "cityId",
+            "file_id", "fileId"
+    );
+
     private int id;
     private String name;
     private String description;
     private LocalDateTime creationDate = LocalDateTime.now();
     private boolean visible;
     private int cityId;
-
     private int fileId;
 
     public Candidate() {
