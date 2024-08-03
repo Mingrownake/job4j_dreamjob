@@ -5,10 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dto.FileDto;
+import ru.job4j.model.User;
 import ru.job4j.model.Vacancy;
 import ru.job4j.service.CityService;
 import ru.job4j.service.VacancyService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -24,13 +26,25 @@ public class VacancyController {
     }
 
     @GetMapping
-    public String getList(Model model) {
+    public String getList(Model model, HttpSession session) {
+        var user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("vacancies", vacancyService.findAll());
         return "vacancies/list";
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model) {
+    public String getCreationPage(Model model, HttpSession session) {
+        var user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/create";
     }
@@ -47,7 +61,13 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id) {
+    public String getById(Model model, @PathVariable int id, HttpSession session) {
+        var user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         var optionalVacancy = vacancyService.findById(id);
         if (optionalVacancy.isEmpty()) {
             model.addAttribute("message", "Пользователь с данным id не найден");
