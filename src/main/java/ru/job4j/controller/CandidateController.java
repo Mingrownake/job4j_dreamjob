@@ -28,25 +28,13 @@ public class CandidateController {
     }
 
     @GetMapping
-    public String getCandidates(Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+    public String getCandidates(Model model) {
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
     @GetMapping("/create")
-    public String getCreatePage(Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+    public String getCreatePage(Model model) {
         model.addAttribute("cities", cityRepository.findAll());
         return "candidates/create";
     }
@@ -63,13 +51,7 @@ public class CandidateController {
     }
 
     @GetMapping("{id}")
-    public String getId(@PathVariable int id, Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+    public String getId(@PathVariable int id, Model model) {
         var optionalCandidate = candidateService.findById(id);
         if (optionalCandidate.isEmpty()) {
             model.addAttribute("message", "Сотрудник с данным id не найден");
