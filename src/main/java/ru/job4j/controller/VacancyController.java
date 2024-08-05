@@ -5,12 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dto.FileDto;
-import ru.job4j.model.User;
 import ru.job4j.model.Vacancy;
 import ru.job4j.service.CityService;
 import ru.job4j.service.VacancyService;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -42,7 +40,7 @@ public class VacancyController {
         try {
             vacancyService.save(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             return "redirect:/vacancies";
-        } catch (IOException e) {
+        } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
             return "error/404";
         }
